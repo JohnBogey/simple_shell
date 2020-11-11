@@ -1,4 +1,4 @@
-#include "header.h"
+#include "shell.h"
 
 /**
  * _puts - prints a line to stdout
@@ -91,4 +91,26 @@ int _strlen(char *s)
 	for (length = 0; start[length] != '\0'; length++)
 		;
 	return (length);
+}
+
+/**
+ * _strcat - concatenates two strings
+ * Return: dest;
+ * @src: src of first string
+ * @dest: where both concat strings will end up
+ */
+
+char *_strcat(char *dest, char *src)
+{
+	int destLength, i;
+
+	for (destLength = 0; dest[destLength]; destLength++)
+		;
+	for (i = 0; i < destLength + 1 && src[i] != '\0'; i++)
+	{
+		dest[destLength + i] = src[i];
+	}
+	dest[destLength + i] = '\0';
+	return (dest);
+
 }
