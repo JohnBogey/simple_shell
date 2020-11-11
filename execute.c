@@ -5,6 +5,12 @@
 #include <sys/wait.h>
 
 /**
+ * exec_built - executes built in function
+ *
+ *
+ */
+
+/**
  * exec_prog - uses children to execve program
  * @argv: null terminated string of args for program
  * Return: always 0
