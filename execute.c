@@ -56,12 +56,14 @@ void exec_prog(char **argv)
 	if (child_pid == -1)
 	{
 		perror("Error:");
-		return (1);
+		return;
 	}
 	if (child_pid == 0)
+	{	
 		if (execve(argv[0], argv, NULL) == -1)
 			perror("Error:");
+	}
 	else
 		wait(&status);
-	return (0);
+	return;
 }

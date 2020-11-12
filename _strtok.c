@@ -1,4 +1,4 @@
-#include "header.h"
+#include "shell.h"
 
 /**
  * _strtok - takes a stirng snd splits it up into words
@@ -23,13 +23,15 @@ char **_strtok(char *str, char c)
 	if (word_list == NULL)
 		return (NULL);
 	for (i = 0; str[i]; i++)
-		if (str[i] == c || i == 0)
+		if ((str[i] == c || i == 0) && str[i + 1] != c && str[i + 1] != '\0')
 		{
 			if (str[i + 1] != c && str[i + 1] != '\0')
 				continue;
 			if (str[i] == c)
 				i++;
 			word_length = 1;
+			temp = i;
+			copy_index = 0;
 			for (j = i; str[j] != c && str[j]; j++)
 				word_length++;
 			word_list[word_index] = (char *)malloc(word_length);
@@ -41,7 +43,6 @@ char **_strtok(char *str, char c)
 				return (NULL);
 			}
 			word_list[word_index][word_length] = '\0';
-			temp = i;
 			for (; temp < j; temp++, copy_index++)
 				word_list[word_index][copy_index] = str[temp];
 			word_index++;
