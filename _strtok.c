@@ -25,6 +25,8 @@ char **_strtok(char *str, char c)
 	for (i = 0; str[i]; i++)
 		if ((str[i] == c || i == 0) && str[i + 1] != c && str[i + 1] != '\0')
 		{
+			if (str[i + 1] != c && str[i + 1] != '\0')
+				continue;
 			if (str[i] == c)
 				i++;
 			word_length = 1;
