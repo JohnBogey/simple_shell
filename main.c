@@ -1,4 +1,6 @@
-#include "header.h"
+#include "shell.h"
+#include <string.h>
+#include <stdbool.h>
 
 int main(int ac, char **av, char **env)
 {
@@ -6,16 +8,20 @@ int main(int ac, char **av, char **env)
 	char *line = NULL;
 	size_t size = 0;
 	char **path = _strtok(getenv("PATH"), ':');
-	DIR *directory = NULL;	
+	char *pth;
+	int status = -1;
 	
 	_puts("$: ");	
 	getline(&line, &size, stdin);
-	while (directory != NULL&& *path)
+	line[strlen(line) - 1] = '\0';
+	while (*path && status == -1)
 	{
-		directory = opendir(*path);
-		printf("%s\n", *path);
-		
+		*path = _strcat(*path, "/");
+		*path = _strcat(*path,line);
+		pth = strdup(*path);
+		status = access(pth, F_OK | X_OK);
+		path++;
 	}
-	printf("%d\n", there);
+	printf("%s\n", pth);	
 	return (0);
 }
