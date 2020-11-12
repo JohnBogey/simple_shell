@@ -21,7 +21,7 @@ void exec_prog(char **argv)
 	if (child_pid == -1)
 	{
 		perror("Error:");
-		return;;
+		return;
 	}
 	if (child_pid == 0)
 	{	

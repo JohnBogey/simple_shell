@@ -16,11 +16,10 @@ void free2d(char **lines)
 		i++;
 		current++;
 	}
-	for (; i >= 0; i--)
+	for (; i > 0; i--)
 	{
 		line = lines[i];
 		free(line);
 	}	
-	free(lines);
 	return;
 }
