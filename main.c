@@ -10,7 +10,6 @@ int main(int ac, char **av, char **env)
 	char **path = _strtok(getenv("PATH"), ':');
 	char **pathStart = path;
 	char **cmd;
-	//char **tmp;
 	int status = -1;
 	//int i;
 	
@@ -25,14 +24,14 @@ int main(int ac, char **av, char **env)
 		status = access(*path, F_OK | X_OK);
 		if (status == 0)
 			break;
+		//printf("%s::%d::", *path, status);
 		path++;
 	}	
 	free(line);
 	cmd[0] = *path;
 	av = cmd;
-	exec_prog(av);
+	exec_prog(av);	
 	free2d(pathStart);
-	printf("Freed Path Array");
-	free2d(cmd);	
+	
 	return (0);
 }
