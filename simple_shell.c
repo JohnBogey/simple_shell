@@ -6,32 +6,29 @@ int main(int ac, char **av, char **env)
 {
 	char *line = NULL;
 	size_t size = 0;
-	char **path = _strtok(getenv("PATH"), ':'), **pathStart = path, **cmd;
+	char **cmd;
 	int status = 1;
 
-	while (status)
+	do
 	{
 		/*prompt and getline*/
 		_puts("$ ");
+		line = NULL;
+		size = 0;
 		if (getline(&line, &size, stdin) == -1)
-		{
 			status = 0;
-			continue;
-		}
 		/*set cmd to list of command + other inputs*/
-		cmd = str_tokens(line, ' ');
-		/*check if newline*/
-		if (cmd[0] == '\n')
-		{
-			free(line);
-			free2d(cmd);
-			continue;
-		}
+		cmd = _strtok(line, ' ');
 		/*run builtin if builtin else run exec_prog*/
 		if (exec_builtin(cmd) != 0)
-			exec_prog(cmd);
-	}
-	free2d(path_start);
-	free2d(cmd);
+		{
+			cmd = cmd_to_arg(cmd);
+			status = exec_prog(cmd);
+		}
+		/*free stuff*/
+		free(cmd);
+		free(line);
+	} while (status)
+
 	return (0);
 }

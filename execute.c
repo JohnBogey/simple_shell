@@ -27,7 +27,6 @@ int exec_builtin(char **argv)
 {
 	built_t function[] = {
 		{"exit", func_exit},
-		{"cd", func_cd},
 		{NULL, NULL}
 	};
 
