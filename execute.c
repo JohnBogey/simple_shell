@@ -10,7 +10,7 @@
  * @cmd: command being checked
  * @f: The function associated
  */
-/*
+*
 typedef struct builtin
 {
 	char *cmd;
@@ -20,29 +20,27 @@ typedef struct builtin
 /**
  * exec_builtin - matches input to function and runs function
  * @argv: null terminated string of args for program
- * Return: 0 on success, -1 on failure
+ * Return: 1 on success, 0 on exit, -1 on failure
  */
-/*
+
 int exec_builtin(char **argv)
 {
 	built_t function[] = {
 		{"exit", func_exit},
+		{"env" , func_env},
 		{NULL, NULL}
 	};
 
 	int i = 0;
 
 	for (i = 0; *(function + i)->cmd, i++)
-		if (*(function + i)->cmd == argv[0])
+		if (_strcmp(*(function + i)->cmd, argv[0]) == 0)
 		{
 			function = *(function + i)->func;
-			function(argv);
-			return (0);
+			return(function(argv));
 		}
 	return (-1);
 }
-
-*/
 
 /**
  * exec_prog - uses children to execve program
