@@ -13,7 +13,7 @@ int main(void)
 {
 	pid_t child_pid;
 	int status;
-	char *argv[] = {"/usr/games/cowsay", "-f", "vader", "hey ;)", NULL};
+	char *argv[] = {"/usr/games/cowsay", "-f", "daemon", "hey ;)", NULL};
 
 	child_pid = fork();
 	if (child_pid == -1)
