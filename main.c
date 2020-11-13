@@ -10,29 +10,31 @@ int main(int ac, char **av, char **env)
 	char **path = _strtok(getenv("PATH"), ':');
 	char **pathStart = path;
 	char **cmd;
-	//char **tmp;
 	int status = -1;
 	//int i;
 	
-	_puts("$: ");	
-	getline(&line, &size, stdin);
-	line[_strlen(line) - 1] = '\0';
-	cmd = _strtok(line, ' ');
-	while (*path)
-	{
-		*path = _strcat(*path, "/");
-		*path = _strcat(*path,line);
-		status = access(*path, F_OK | X_OK);
-		if (status == 0)
-			break;
-		path++;
-	}	
-	free(line);
-	cmd[0] = *path;
-	av = cmd;
-	exec_prog(av);
-	free2d(pathStart);
-	printf("Freed Path Array");
-	free2d(cmd);	
+	//while (1)
+	//{	
+		_puts("$: ");	
+		getline(&line, &size, stdin);
+		line[_strlen(line) - 1] = '\0';
+		cmd = _strtok(line, ' ');
+		while (*path)
+		{
+			*path = _strcat(*path, "/");
+			*path = _strcat(*path,line);
+			status = access(*path, F_OK | X_OK);
+			if (status == 0)
+				break;
+			path++;
+		}	
+		free(line);
+		cmd[0] = *path;
+		av = cmd;
+		exec_prog(av);	
+		free2d(path);
+		free2dXtra(pathStart);	
+		free(cmd);
+	//}
 	return (0);
 }
