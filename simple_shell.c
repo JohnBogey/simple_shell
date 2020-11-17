@@ -17,7 +17,8 @@ int main(void)
 	signal(SIGINT, SIG_IGN);
 	do {
 		/*prompt and getline*/
-		_puts("$ ");
+		if (isatty(STDIN_FILENO) != 0)
+			_puts("$ ");
 		line = NULL;
 		size = 0;
 		if (getline(&line, &size, stdin) == -1)
