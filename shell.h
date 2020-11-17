@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <string.h>
 #include <linux/limits.h>
 
 int _strlen(char *s);
@@ -21,4 +22,6 @@ char *_strcat(char *dest, char *src);
 void exec_prog(char **argv);
 void free1d(char *line);
 void free2d(char **lines);
-#endif
+char **cmd_to_arg(char **cmds);
+char *get_path(char **env);
+#endif /*HEADER_H*/
