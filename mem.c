@@ -1,11 +1,5 @@
 #include "shell.h"
 
-void free1d(char *line)
-{
-	free(line);
-	return;
-}
-
 void free2d(char **lines)
 {
 	char **current = lines;
@@ -20,6 +14,6 @@ void free2d(char **lines)
 	{
 		line = lines[i];
 		free(line);
-	}	
+	}
 	return;
 }

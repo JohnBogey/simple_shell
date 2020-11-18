@@ -20,8 +20,8 @@ char *_strcpy(char *dest, char *src);
 char *str_concat(char *s1, char *s2);
 char *_strcat(char *dest, char *src);
 void exec_prog(char **argv);
-void free1d(char *line);
 void free2d(char **lines);
 char **cmd_to_arg(char **cmds);
 char *get_path(char **env);
+void func_exit(void)
 #endif /*HEADER_H*/
