@@ -4,6 +4,16 @@
 #include <signal.h>
 
 /**
+ * kill_block - stops ctrl+c
+ * Return: always nothing
+ */
+void kill_block(int sig)
+{
+	(void)signal;
+	_puts("\n$ ");
+}
+
+/**
  * main - a very simple shell
  * Return: always 0
  */
@@ -12,35 +22,24 @@ int main(void)
 	char *line = NULL;
 	size_t size = 0;
 	char **cmd;
-	int status;
+	int status = 1;
 
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, kill_block);
 	do {
-		/*prompt and getline*/
 		if (isatty(STDIN_FILENO) != 0)
 			_puts("$ ");
 		line = NULL;
 		size = 0;
 		if (getline(&line, &size, stdin) == -1)
 		{
-			free2d(cmd);
+			_putchar('\n');
 			free(line);
 			status = 0;
 			continue;
 		}
-		/*set cmd to list of command + other inputs*/
-		cmd = _strtok(line, ' ');
-		/*run builtin if builtin else run exec_prog*/
-		status = exec_builtin(cmd);
-		if (status == -1)
-		{
-			cmd = cmd_to_arg(cmd);
-			exec_prog(cmd);
-			status = 1;
-		}
-		/*free stuff*/
-		free2d(cmd);
+		if (line[0] != '\n')
+			stuff;
 		free(line);
-	} while (status)
+	} while (status);
 	return (0);
 }
