@@ -25,11 +25,15 @@ int main(void)
 	int status = 1;
 
 	signal(SIGINT, kill_block);
-	do {
+	while (status)
+	{
+		/*prompt if stdin*/
 		if (isatty(STDIN_FILENO) != 0)
 			_puts("$ ");
+		/*reset variables for getline*/
 		line = NULL;
 		size = 0;
+		/*get the line, on EOF or failure exit*/
 		if (getline(&line, &size, stdin) == -1)
 		{
 			_putchar('\n');
@@ -38,8 +42,16 @@ int main(void)
 			continue;
 		}
 		if (line[0] != '\n')
-			stuff;
+		{
+			/*set cmd to array of commands/flags*/
+			cmd = _strtok(line, ' ');
+			cmd[0][_strlen(cmd[0]) - 1] = '\0';
+			/*execute program*/
+			exec_prog(cmd);
+			/*free stuff*/
+			free2d(cmd);
+		}
 		free(line);
-	} while (status);
+	}
 	return (0);
 }
