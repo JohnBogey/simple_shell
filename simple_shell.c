@@ -46,8 +46,14 @@ int main(void)
 			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, ' ');
 			cmd[0][_strlen(cmd[0]) - 1] = '\0';
-			/*execute program*/
-			exec_prog(cmd);
+			/*check built ins, run if found*/
+			status = exec_builtin(cmd);
+			if (status == -1)
+			{
+				/*execute program if found*/
+				exec_prog(cmd);
+				status = 1;
+			}
 			/*free stuff*/
 			free2d(cmd);
 		}

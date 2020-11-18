@@ -10,7 +10,7 @@
  * @cmd: command being checked
  * @f: The function associated
  */
-/*
+
 typedef struct builtin
 {
 	char *cmd;
@@ -22,7 +22,7 @@ typedef struct builtin
  * @argv: null terminated string of args for program
  * Return: 1 on success, 0 on exit, -1 on failure
  */
-/*
+
 int exec_builtin(char **argv)
 {
 	built_t function[] = {
