@@ -17,11 +17,12 @@ char **_strtok(char *str, char c);
 int _putchar(char c);
 void _puts(char *str);
 char *_strcpy(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
 char *str_concat(char *s1, char *s2);
 char *_strcat(char *dest, char *src);
 void exec_prog(char **argv);
-void free1d(char *line);
 void free2d(char **lines);
 char **cmd_to_arg(char **cmds);
 char *get_path(char **env);
+int func_exit(void);
 #endif /*HEADER_H*/

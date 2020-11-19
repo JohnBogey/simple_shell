@@ -28,7 +28,7 @@ int main(void)
 	while (status)
 	{
 		/*prompt if stdin*/
-		if (isatty(STDIN_FILENO) != 0)
+		if (isatty(STDIN_FILENO) == 1)
 			_puts("$ ");
 		/*reset variables for getline*/
 		line = NULL;
@@ -43,11 +43,20 @@ int main(void)
 		}
 		if (line[0] != '\n')
 		{
+			/*set last newline to nullbyte*/
+			line[_strlen(cmd[0]) - 1] = '\0';
 			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, ' ');
-			cmd[0][_strlen(cmd[0]) - 1] = '\0';
-			/*execute program*/
-			exec_prog(cmd);
+			/*check built ins, run if found*/
+			status = exec_builtin(cmd);
+			if (status == -1)
+			{
+				/*turns cmd to args for exec*/
+
+				/*execute program if found*/
+				exec_prog(cmd);
+				status = 1;
+			}
 			/*free stuff*/
 			free2d(cmd);
 		}
