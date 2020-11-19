@@ -23,5 +23,5 @@ void exec_prog(char **argv);
 void free2d(char **lines);
 char **cmd_to_arg(char **cmds);
 char *get_path(char **env);
-void func_exit(void)
+int func_exit(void);
 #endif /*HEADER_H*/

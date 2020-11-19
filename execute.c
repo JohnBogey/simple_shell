@@ -13,8 +13,8 @@
 
 typedef struct builtin
 {
-	char *cmd;
-	char *(*func)(char **argv);
+	char *str;
+	int (*func)(void);
 } built_t;
 
 /**
@@ -23,20 +23,19 @@ typedef struct builtin
  * Return: 1 on success, 0 on exit, -1 on failure
  */
 
-int exec_builtin(char **argv)
+int exec_builtin(char **commands)
 {
-	built_t function[] = {
+	built_t built_ins[] = {
 		{"exit", func_exit},
 		{NULL, NULL}
 	};
 
-	int i = 0;
+	int i = 0, function;
 
-	for (i = 0; *(function + i)->cmd, i++)
-		if (_strcmp(*(function + i)->cmd, argv[0]) == 0)
+	for (i = 0; built_ins[i].str != NULL; i++)
+		if (strcmp(built_ins[i].str, commands[0]) == 0)
 		{
-			function = *(function + i)->func;
-			return(function(argv));
+			return (built_ins[i].func());
 		}
 	return (-1);
 }

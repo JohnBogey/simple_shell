@@ -28,7 +28,7 @@ int main(void)
 	while (status)
 	{
 		/*prompt if stdin*/
-		if (isatty(STDIN_FILENO) != 0)
+		if (isatty(STDIN_FILENO) == 1)
 			_puts("$ ");
 		/*reset variables for getline*/
 		line = NULL;
