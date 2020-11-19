@@ -33,7 +33,7 @@ int exec_builtin(char **commands)
 	int i = 0, function;
 
 	for (i = 0; built_ins[i].str != NULL; i++)
-		if (strcmp(built_ins[i].str, commands[0]) == 0)
+		if (_strcmp(built_ins[i].str, commands[0]) == 0)
 		{
 			return (built_ins[i].func());
 		}
