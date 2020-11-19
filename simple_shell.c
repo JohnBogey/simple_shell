@@ -9,7 +9,7 @@
  */
 void kill_block(int sig)
 {
-	(void)signal;
+	(void)sig;
 	_puts("\n$ ");
 }
 
@@ -17,8 +17,9 @@ void kill_block(int sig)
  * main - a very simple shell
  * Return: always 0
  */
-int main(void)
+int main(int ac, char **av, char **env)
 {
+	(void)ac, (void)av;
 	char *line = NULL;
 	size_t size = 0;
 	char **cmd;
@@ -52,7 +53,7 @@ int main(void)
 			if (status == -1)
 			{
 				/*turns cmd to args for exec*/
-
+				cmd = cmd_to_arg(cmd, env);
 				/*execute program if found*/
 				exec_prog(cmd);
 				status = 1;

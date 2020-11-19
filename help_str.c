@@ -86,9 +86,8 @@ char *_strcpy(char *dest, char *src)
 int _strlen(char *s)
 {
 	int length;
-	char *start = s;
 
-	for (length = 0; start[length] != '\0'; length++)
+	for (length = 0; s[length] != '\0'; length++)
 		;
 	return (length);
 }

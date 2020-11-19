@@ -29,7 +29,7 @@ char **cmd_to_arg(char **cmd, char **env)
 	}
 	for (i = 0; pths[i] != NULL; i++)
 	{
-		check[i] = malloc(strlen(pths[i]) + strlen(cmd[0]) + 2);
+		check[i] = malloc(_strlen(pths[i]) + _strlen(cmd[0]) + 2);
 		if (check[i] == NULL)
 		{
 			free2d(check);
@@ -37,9 +37,9 @@ char **cmd_to_arg(char **cmd, char **env)
 			free2d(cmd);
 			return (NULL);
 		}
-		strcpy(check[i], pths[i]);
-		strcat(check[i], slash);
-		strcat(check[i], cmd[0]);
+		_strcpy(check[i], pths[i]);
+		_strcat(check[i], slash);
+		_strcat(check[i], cmd[0]);
 	}
 	check[i] = NULL;
 	free2d(pths);
@@ -63,18 +63,18 @@ char **cmd_to_arg(char **cmd, char **env)
 		free2d(cmd);
 		return (NULL);
 	}
-	args[0] = malloc(strlen(check[i]) + 1);
-	strcpy(args[0], check[i]);
+	args[0] = malloc(_strlen(check[i]) + 1);
+	_strcpy(args[0], check[i]);
 	free2d(check);
 	for (i = 1; cmd[i] != NULL; i++)
 	{
-		args[i] = malloc(strlen(cmd[i] + 1));
+		args[i] = malloc(_strlen(cmd[i] + 1));
 		if (args[i] == NULL)
 		{
 			free2d(args);
 			free2d(cmd);
 		}
-		strcpy(args[i], cmd[i]);
+		_strcpy(args[i], cmd[i]);
 	}
 	args[i] = NULL;
 	free2d(cmd);
