@@ -45,11 +45,15 @@ int main(void)
 		{
 			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, ' ');
+			/*set new line char to null byte*/
+
 			cmd[0][_strlen(cmd[0]) - 1] = '\0';
 			/*check built ins, run if found*/
 			status = exec_builtin(cmd);
 			if (status == -1)
 			{
+				/*turns cmc to args for exec*/
+
 				/*execute program if found*/
 				exec_prog(cmd);
 				status = 1;
