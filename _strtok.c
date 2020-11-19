@@ -1,28 +1,47 @@
 #include "shell.h"
 
-char **_strtok(char *str, char delim)
-{	
+/**
+ * _strtok - takes a strings and formats as an array
+ * of strings using strtok
+ * Return: array of tokenized strings
+ * @str: string to be parsed
+ * @delim: pointer to single char that separates
+ * needed strings from str
+ */
+
+char **_strtok(char *str, char *delim)
+{
 	char **doubl;
 	char *s = str;
-	int i = 1;	
-	
+	char *string;
+	int i = 0;
+
 	while (*s)
 	{
-		if (*s == delim)
+		if (*s == *delim)
 			i++;
 		s++;
 	}
-	doubl = malloc(sizeof(char *) * i);
+	doubl = malloc(sizeof(char *) * (i + 2));
+	if (doubl == NULL)
+		return (NULL);
 	i = 0;
-	s = strtok(str, &delim);
+	string = strtok(str, delim);
 	while (1)
-	{	
-		if (s == NULL)
+	{
+		if (string == NULL)
 			break;
-		doubl[i] = malloc(sizeof(char) * _strlen(s) + 1);
-		doubl[i] = _strcpy(doubl[i], s);
+		doubl[i] = malloc(sizeof(char) * strlen(string) + 1);
+		if (doubl[i] == NULL)
+		{
+			free2d(doubl);
+			return (NULL);
+		}
+		strcpy(doubl[i], string);
 		i++;
-		s = strtok(NULL, &delim);
+		string = strtok(NULL, delim);
 	}
+	doubl[i] = NULL;
 	return (doubl);
 }
+
