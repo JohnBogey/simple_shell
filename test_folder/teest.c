@@ -80,7 +80,6 @@ char *get_path(char **env)
 char **cmd_to_arg(char **cmd, char **env)
 {
 
-        /* FREE PATH BEFORE END */
         char *path = get_path(env);
         char slash[] = "/";
         char **args = NULL, **pths = _strtok(path, ":"), **check; 

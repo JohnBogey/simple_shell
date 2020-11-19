@@ -13,7 +13,7 @@
 #include <linux/limits.h>
 
 int _strlen(char *s);
-char **_strtok(char *str, char c);
+char **_strtok(char *str, char *c);
 int _putchar(char c);
 void _puts(char *str);
 char *_strcpy(char *dest, char *src);
@@ -22,6 +22,6 @@ char *_strcat(char *dest, char *src);
 void exec_prog(char **argv);
 void free1d(char *line);
 void free2d(char **lines);
-char **cmd_to_arg(char **cmds);
+char **cmd_to_arg(char **cmd, char **env);
 char *get_path(char **env);
 #endif /*HEADER_H*/

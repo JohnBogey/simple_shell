@@ -23,10 +23,10 @@ char *get_path(char **env)
 				break;
 			if (check[i][j] == pth[j] && j == 3)
 			{
-				path = malloc(strlen(check[i]) + 1);
+				path = malloc(_strlen(check[i]) + 1);
 				if (path == NULL)
 					return (NULL);
-				strcpy(path, check[i]);
+				_strcpy(path, check[i]);
 				stop = 1;
 			}
 		}
@@ -34,8 +34,8 @@ char *get_path(char **env)
 	current = path;
 	while (*current != '/')
 		current++;
-	p = malloc(strlen(path) + 1 - 4);
-	strcpy(p, current);
+	p = malloc(_strlen(path) + 1 - 4);
+	_strcpy(p, current);
 	free(path);
 	return (p);
 }

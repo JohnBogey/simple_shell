@@ -1,34 +1,61 @@
 #include "shell.h"
 #include <string.h>
 #include <stdbool.h>
+#include <signal.h>
 
+/**
+ * kill_block - stops ctrl+c
+ * Return: always nothing
+ */
+void kill_block(int sig)
+{
+	(void)sig;
+	_puts("\n$ ");
+}
+
+/**
+ * main - a very simple shell
+ * Return: always 0
+ */
 int main(int ac, char **av, char **env)
 {
+	(void)ac, (void)av;
 	char *line = NULL;
 	size_t size = 0;
 	char **cmd;
 	int status = 1;
 
-	do
+	signal(SIGINT, kill_block);
+	while (status)
 	{
-		/*prompt and getline*/
-		_puts("$ ");
+		/*prompt if stdin*/
+		if (isatty(STDIN_FILENO) == 1)
+			_puts("$ ");
+		/*reset variables for getline*/
 		line = NULL;
 		size = 0;
+		/*get the line, on EOF or failure exit*/
 		if (getline(&line, &size, stdin) == -1)
-			status = 0;
-		/*set cmd to list of command + other inputs*/
-		cmd = _strtok(line, ' ');
-		/*run builtin if builtin else run exec_prog*/
-		if (exec_builtin(cmd) != 0)
 		{
-			cmd = cmd_to_arg(cmd);
-			status = exec_prog(cmd);
+			_putchar('\n');
+			free(line);
+			status = 0;
+			continue;
 		}
-		/*free stuff*/
-		free(cmd);
+		if (line[0] != '\n')
+		{
+			line[_strlen(line) - 1] = '\0';
+			/*set cmd to array of commands/flags*/
+			cmd = _strtok(line, " ");
+			/*check built ins, run if found*/
+			/*turns cmc to args for exec*/
+			cmd = cmd_to_arg(cmd, env);
+			/*execute program if found*/
+			exec_prog(cmd);
+		}
+			/*free stuff*/
+		free2d(cmd);
 		free(line);
-	} while (status)
-
+	}
 	return (0);
 }

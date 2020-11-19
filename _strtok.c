@@ -31,13 +31,13 @@ char **_strtok(char *str, char *delim)
 	{
 		if (string == NULL)
 			break;
-		doubl[i] = malloc(sizeof(char) * strlen(string) + 1);
+		doubl[i] = malloc(sizeof(char) * _strlen(string) + 1);
 		if (doubl[i] == NULL)
 		{
 			free2d(doubl);
 			return (NULL);
 		}
-		strcpy(doubl[i], string);
+		_strcpy(doubl[i], string);
 		i++;
 		string = strtok(NULL, delim);
 	}

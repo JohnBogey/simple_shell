@@ -17,7 +17,7 @@ typedef struct builtin
 	char *(*func)(char **argv);
 } built_t;
 
-/**
+**
  * exec_builtin - matches input to function and runs function
  * @argv: null terminated string of args for program
  * Return: 0 on success, -1 on failure
@@ -62,8 +62,10 @@ void exec_prog(char **argv)
 		return;
 	}
 	if (child_pid == 0)
+	{	
 		if (execve(argv[0], argv, NULL) == -1)
 			perror("Error:");
+	}
 	else
 		wait(&status);
 	return;
