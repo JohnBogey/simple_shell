@@ -1,5 +1,26 @@
 #include "shell.h"
 
+
+/**
+ * _puts - prints a line to stdout
+ * Return: void
+ * @str: string passed to function from main
+ */
+
+void _putsNewLine(char *str)
+{
+        char *print = str;
+
+        while (*print)
+        {
+                _putchar(*print);
+                print++;
+        }
+	_putchar('\n');
+}
+
+
+
 /**
  * _puts - prints a line to stdout
  * Return: void
@@ -27,37 +48,6 @@ void _puts(char *str)
 int _putchar(char c)
 {
 	return (write(1, &c, 1));
-}
-
-/*
-* str_concat - concatenates two strings
-* @s1: string from main
-* @s2: string from main
-* Return: if failure NULL else new string
-*/
-
-char *str_concat(char *s1, char *s2)
-{
-	int firstLength;
-	int secondLength;
-	char *middle;
-	char *concat;
-
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
-	else if (s1 == NULL)
-		return (s2);
-	else if (s2 == NULL)
-		return (s1);
-	firstLength = _strlen(s1);
-	secondLength = _strlen(s2);
-	concat = malloc(firstLength + secondLength + 1);
-	middle = &concat[firstLength];
-	if (concat == NULL)
-		return (NULL);
-	_strcpy(concat, s1);
-	_strcpy(middle, s2);
-	return (concat);
 }
 
 /**
@@ -112,4 +102,21 @@ char *_strcat(char *dest, char *src)
 	dest[destLength + i] = '\0';
 	return (dest);
 
+}
+
+/**
+ * _strcmp - compares two strings
+ *  Return: difference between the strings
+ *  @s1: string from main
+ *  @s2: string from main
+ */
+
+int _strcmp(char *s1, char *s2)
+{
+	for (; *s1 == *s2; s1++, s2++)
+	{
+		if (*s1 == '\0')
+			return (0);
+	}
+	return (*s1 - *s2);
 }
