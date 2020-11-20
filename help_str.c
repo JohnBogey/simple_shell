@@ -50,6 +50,40 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
+<<<<<<< HEAD
+=======
+/**
+* str_concat - concatenates two strings
+* @s1: string from main
+* @s2: string from main
+* Return: if failure NULL else new string
+*/
+
+char *str_concat(char *s1, char *s2)
+{
+	int firstLength;
+	int secondLength;
+	char *middle;
+	char *concat;
+
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
+	else if (s1 == NULL)
+		return (s2);
+	else if (s2 == NULL)
+		return (s1);
+	firstLength = _strlen(s1);
+	secondLength = _strlen(s2);
+	concat = malloc(firstLength + secondLength + 1);
+	middle = &concat[firstLength];
+	if (concat == NULL)
+		return (NULL);
+	_strcpy(concat, s1);
+	_strcpy(middle, s2);
+	return (concat);
+}
+
+>>>>>>> 84f1f992a5add9efff9bb7695e504f10f3f2bfc6
 /**
  * _strcpy - copys a string
  * Return: pointer to copy
@@ -106,17 +140,42 @@ char *_strcat(char *dest, char *src)
 
 /**
  * _strcmp - compares two strings
+<<<<<<< HEAD
  *  Return: difference between the strings
  *  @s1: string from main
  *  @s2: string from main
+=======
+ * @s1: string
+ * @s2: string
+ *
+ * Return: dest
+>>>>>>> 84f1f992a5add9efff9bb7695e504f10f3f2bfc6
  */
 
 int _strcmp(char *s1, char *s2)
 {
+<<<<<<< HEAD
 	for (; *s1 == *s2; s1++, s2++)
 	{
 		if (*s1 == '\0')
 			return (0);
 	}
 	return (*s1 - *s2);
+=======
+	int i = 0;
+
+	while (s1[i] != '\0')
+	{
+		if (s2[i] == '\0')
+			return (s1[i]);
+		if (s2[i] > s1[i])
+			return (s1[i] - s2[i]);
+		if (s2[i] < s1[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	if (s2[i] != '\0')
+		return (0);
+	return (0);
+>>>>>>> 84f1f992a5add9efff9bb7695e504f10f3f2bfc6
 }

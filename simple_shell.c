@@ -45,10 +45,12 @@ int main(int ac, char **av, char **env)
 		}
 		if (line[0] != '\n' && line[0] != ' ')
 		{
+			/*set last newline to nullbyte*/
 			line[_strlen(line) - 1] = '\0';
 			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, " ");
 			/*check built ins, run if found*/
+<<<<<<< HEAD
 			status = exec_builtin(cmd, env);
 			if (status == -1)
 			{
@@ -61,6 +63,20 @@ int main(int ac, char **av, char **env)
 			if (cmd != NULL)
 				free2d(cmd);
 		}	
+=======
+			status = exec_builtin(cmd);
+			if (status == -1)
+			{
+				/*turns cmd to args for exec*/
+				cmd = cmd_to_arg(cmd, env);
+				/*execute program if found*/
+				exec_prog(cmd);
+				status = 1;
+			}
+			/*free stuff*/
+			free2d(cmd);
+		}
+>>>>>>> 84f1f992a5add9efff9bb7695e504f10f3f2bfc6
 		free(line);
 	}
 	return (0);
