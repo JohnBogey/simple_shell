@@ -10,39 +10,35 @@
  * @cmd: command being checked
  * @f: The function associated
  */
-/*
+
 typedef struct builtin
 {
-	char *cmd;
-	char *(*func)(char **argv);
+	char *str;
+	int (*func)(void);
 } built_t;
 
-**
+/**
  * exec_builtin - matches input to function and runs function
  * @argv: null terminated string of args for program
- * Return: 0 on success, -1 on failure
+ * Return: 1 on success, 0 on exit, -1 on failure
  */
-/*
-int exec_builtin(char **argv)
+
+int exec_builtin(char **commands)
 {
-	built_t function[] = {
+	built_t built_ins[] = {
 		{"exit", func_exit},
 		{NULL, NULL}
 	};
 
-	int i = 0;
+	int i = 0, function;
 
-	for (i = 0; *(function + i)->cmd, i++)
-		if (*(function + i)->cmd == argv[0])
+	for (i = 0; built_ins[i].str != NULL; i++)
+		if (_strcmp(built_ins[i].str, commands[0]) == 0)
 		{
-			function = *(function + i)->func;
-			function(argv);
-			return (0);
+			return (built_ins[i].func());
 		}
 	return (-1);
 }
-
-*/
 
 /**
  * exec_prog - uses children to execve program
@@ -62,9 +58,10 @@ void exec_prog(char **argv)
 		return;
 	}
 	if (child_pid == 0)
-	{	
-		if (execve(argv[0], argv, NULL) == -1)
-			perror("Error:");
+	{
+		execve(argv[0], argv, NULL);
+		perror("Error:");
+		_exit(0);
 	}
 	else
 		wait(&status);
