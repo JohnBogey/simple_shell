@@ -43,7 +43,7 @@ int main(int ac, char **av, char **env)
 			status = 0;
 			continue;
 		}
-		if (line[0] != '\n')
+		if (line[0] != '\n' && line[0] != ' ')
 		{
 			/*set last newline to nullbyte*/
 			line[_strlen(line) - 1] = '\0';
@@ -54,13 +54,16 @@ int main(int ac, char **av, char **env)
 			if (status == -1)
 			{
 				/*turns cmd to args for exec*/
-				cmd = cmd_to_arg(cmd, env);
+				if (cmd[0][0] != '/')
+					cmd = cmd_to_arg(cmd, env);
 				/*execute program if found*/
-				exec_prog(cmd);
+				if (cmd != NULL)
+					exec_prog(cmd);
 				status = 1;
 			}
 			/*free stuff*/
-			free2d(cmd);
+			if (cmd != NULL)
+				free2d(cmd);
 		}
 		free(line);
 	}
