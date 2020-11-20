@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <signal.h>
 
+extern int errno;
 /**
  * kill_block - stops ctrl+c
  * Return: always nothing
