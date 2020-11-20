@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <signal.h>
 
+extern int errno;
 /**
  * kill_block - stops ctrl+c
  * Return: always nothing
@@ -24,7 +25,7 @@ int main(int ac, char **av, char **env)
 	size_t size = 0;
 	char **cmd;
 	int status = 1;
-
+	
 	signal(SIGINT, kill_block);
 	while (status)
 	{
@@ -50,11 +51,15 @@ int main(int ac, char **av, char **env)
 			/*check built ins, run if found*/
 			/*turns cmc to args for exec*/
 			cmd = cmd_to_arg(cmd, env);
+			
 			/*execute program if found*/
-			exec_prog(cmd);
+			if (cmd != NULL)
+				exec_prog(cmd);	
 		}
 			/*free stuff*/
-		free2d(cmd);
+		if (cmd != NULL)
+			free2d(cmd);
+			
 		free(line);
 	}
 	return (0);
