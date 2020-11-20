@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <signal.h>
 
-extern int errno;
+
 /**
  * kill_block - stops ctrl+c
  * Return: always nothing
@@ -50,7 +50,8 @@ int main(int ac, char **av, char **env)
 			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, " ");
 			/*check built ins, run if found*/
-			status = exec_builtin(cmd);
+
+			status = exec_builtin(cmd, env);
 			if (status == -1)
 			{
 				/*turns cmd to args for exec*/
