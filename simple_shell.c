@@ -54,7 +54,7 @@ int main(int ac, char **av, char **env)
 			if (status == -1)
 			{
 				/*turns cmd to args for exec*/
-				if (cmd[0][0] != '/')
+				if (access(cmd[0], F_OK) != 0)
 					cmd = cmd_to_arg(cmd, env);
 				/*execute program if found*/
 				if (cmd != NULL)
