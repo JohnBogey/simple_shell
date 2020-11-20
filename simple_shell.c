@@ -45,7 +45,7 @@ int main(int ac, char **av, char **env)
 		if (line[0] != '\n')
 		{
 			/*set last newline to nullbyte*/
-			line[_strlen(cmd[0]) - 1] = '\0';
+			line[_strlen(line) - 1] = '\0';
 			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, " ");
 			/*check built ins, run if found*/
