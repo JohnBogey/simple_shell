@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <signal.h>
 
+extern int errno;
 /**
  * kill_block - stops ctrl+c
  * Return: always nothing
@@ -24,7 +25,7 @@ int main(int ac, char **av, char **env)
 	size_t size = 0;
 	char **cmd;
 	int status = 1;
-
+	
 	signal(SIGINT, kill_block);
 	while (status)
 	{
