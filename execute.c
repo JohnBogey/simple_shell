@@ -13,10 +13,12 @@ int func_exit(char **env)
 int func_clear(char **env)
 {
 	(void)env;
-	char **cmd = malloc(sizeof(char *) * 4);
-	cmd[0] = "echo";
-	cmd[1] = "-e";
-	cmd[2] = "\x1b\x5b\x48\x1b\x5b\x32\x4a\c"
+	char cmd[] = "echo -e \"\\x1b\\x5b\\x48\\x1b\\x5b\\x32\\x4a\\c\"";
+	char **command = _strtok(cmd, " ");
+	command = cmd_to_arg(command, env);
+	exec_prog(command);
+	free2d(command);
+	return (1);
 }
 
 int func_env(char **env)
