@@ -25,6 +25,7 @@ int main(int ac, char **av, char **env)
 	char **cmd;
 	int status = 1, command_count = 0;
 
+	(void)ac, (void)av;
 	signal(SIGINT, kill_block);
 	while (status)
 	{
