@@ -25,7 +25,7 @@ int main(int ac, char **av, char **env)
 	size_t size = 0;
 	char **cmd;
 	int status = 1;
-	
+
 	signal(SIGINT, kill_block);
 	while (status)
 	{
@@ -54,15 +54,18 @@ int main(int ac, char **av, char **env)
 			status = exec_builtin(cmd, env);
 			if (status == -1)
 			{
-				/*turns cmc to args for exec*/
-				cmd = cmd_to_arg(cmd, env);
+				/*turns cmd to args for exec*/
+				if (access(cmd[0], F_OK) != 0)
+					cmd = cmd_to_arg(cmd, env);
 				/*execute program if found*/
 				if (cmd != NULL)
-					exec_prog(cmd);	
+					exec_prog(cmd);
+				status = 1;
 			}
+			/*free stuff*/
 			if (cmd != NULL)
 				free2d(cmd);
-		}	
+		}
 		free(line);
 	}
 	return (0);
