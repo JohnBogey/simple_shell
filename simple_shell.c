@@ -20,11 +20,10 @@ void kill_block(int sig)
  */
 int main(int ac, char **av, char **env)
 {
-	(void)ac, (void)av;
 	char *line = NULL;
 	size_t size = 0;
 	char **cmd;
-	int status = 1;
+	int status = 1, command_count = 0;
 
 	signal(SIGINT, kill_block);
 	while (status)
@@ -35,6 +34,7 @@ int main(int ac, char **av, char **env)
 		/*reset variables for getline*/
 		line = NULL;
 		size = 0;
+		command_count += 1;
 		/*get the line, on EOF or failure exit*/
 		if (getline(&line, &size, stdin) == -1)
 		{
@@ -43,14 +43,13 @@ int main(int ac, char **av, char **env)
 			status = 0;
 			continue;
 		}
-		if (line[0] != '\n' && line[0] != ' ')
+		if (line[0] != '\n' && line[0] != ' ' && line[0] != ':')
 		{
 			/*set last newline to nullbyte*/
 			line[_strlen(line) - 1] = '\0';
 			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, " ");
 			/*check built ins, run if found*/
-
 			status = exec_builtin(cmd, env);
 			if (status == -1)
 			{
