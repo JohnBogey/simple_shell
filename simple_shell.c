@@ -20,12 +20,12 @@ void kill_block(int sig)
  */
 int main(int ac, char **av, char **env)
 {
-	(void)ac, (void)av;
 	char *line = NULL;
 	size_t size = 0;
 	char **cmd;
 	int status = 1;
 
+	(void)ac, (void)av;
 	signal(SIGINT, kill_block);
 	while (status)
 	{
