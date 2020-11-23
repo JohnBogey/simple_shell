@@ -51,6 +51,7 @@ char **cmd_to_arg(char **cmd, char **env)
 		free(check);
 		return (NULL);
 	}
+	freeall(check, cmd);
 	return (args);
 }
 
@@ -70,7 +71,7 @@ int populateargs(char **args, char **check, char **cmd, int i)
 	_strcpy(args[0], check[i]);
 	for (i = 1; cmd[i] != NULL; i++)
 	{
-		args[i] = malloc(_strlen(cmd[i] + 1));
+		args[i] = malloc(_strlen(cmd[i]) + 1);
 		if (args[i] == NULL)
 		{
 			freeall(args, cmd);
