@@ -12,11 +12,9 @@
 
 char **cmd_to_arg(char **cmd, char **env)
 {
-
 	char *path = get_path(env);
-	char slash[] = "/";
 	char **args = NULL, **pths = _strtok(path, ":"), **check;
-	int status = -1, i = 0, j;
+	int i = 0, j;
 
 	free(path);
 	for (i = 0; pths[i] != NULL; i++)
@@ -27,29 +25,11 @@ char **cmd_to_arg(char **cmd, char **env)
 		free2d(cmd);
 		return (NULL);
 	}
-	for (i = 0; pths[i] != NULL; i++)
-	{
-		check[i] = malloc(_strlen(pths[i]) + _strlen(cmd[0]) + 2);
-		if (check[i] == NULL)
-		{
-			free2d(check);
-			free2d(pths);
-			free2d(cmd);
-			return (NULL);
-		}
-		_strcpy(check[i], pths[i]);
-		_strcat(check[i], slash);
-		_strcat(check[i], cmd[0]);
-	}
-	check[i] = NULL;
-	free2d(pths);
-	for (i = 0; check[i] != NULL; i++)
-	{
-		status = access(check[i], F_OK | X_OK);
-		if (status == 0)
-			break;
-	}
-	if (check[i] == NULL)
+	j = populate(check, pths, cmd);
+	if (j == 0)
+		return (NULL);
+	i = checkpath(check);
+	if (i == 0)
 	{
 		free2d(cmd);
 		return (NULL);
@@ -63,9 +43,28 @@ char **cmd_to_arg(char **cmd, char **env)
 		free2d(cmd);
 		return (NULL);
 	}
+	j = populateargs(args, check, cmd, i);
+	if (j == 0)
+		return (NULL);
+	free2d(cmd);
+	free2d(check);
+	return (args);
+}
+
+/**
+ * populateargs - populates args array with path
+ * name of executable file and options after the command
+ * @args: array to be populated with full path and command flags
+ * @check: array of full path names checked
+ * @cmd: array of commands from user
+ * @i: index of correct path in check array
+ * Return: 1 on success else 0
+ */
+
+int populateargs(char **args, char **check, char **cmd, int i)
+{
 	args[0] = malloc(_strlen(check[i]) + 1);
 	_strcpy(args[0], check[i]);
-	free2d(check);
 	for (i = 1; cmd[i] != NULL; i++)
 	{
 		args[i] = malloc(_strlen(cmd[i] + 1));
@@ -73,11 +72,64 @@ char **cmd_to_arg(char **cmd, char **env)
 		{
 			free2d(args);
 			free2d(cmd);
+			return (0);
 		}
 		_strcpy(args[i], cmd[i]);
 	}
 	args[i] = NULL;
-	free2d(cmd);
-	return (args);
+	return (1);
 }
 
+/**
+ * populate - takes parsed path and adds a
+ * slash and the first string in the cmd array
+ * @check: array of strings to be populated
+ * @pths: array of strings that is parsed $PATH
+ * @cmd: input from user
+ * Return: 1 on success else 0
+ */
+
+int populate(char **check, char **pths, char **cmd)
+{
+	int i;
+	char slash[] = "/";
+
+	for (i = 0; pths[i] != NULL; i++)
+	{
+		check[i] = malloc(_strlen(pths[i]) + _strlen(cmd[0]) + 2);
+		if (check[i] == NULL)
+		{
+			free2d(check);
+			free2d(pths);
+			free2d(cmd);
+			return (0);
+		}
+		_strcpy(check[i], pths[i]);
+		_strcat(check[i], slash);
+		_strcat(check[i], cmd[0]);
+	}
+	check[i] = NULL;
+	free2d(pths);
+	return (1);
+}
+
+/**
+ * checkpath - checks the path to file and sees if it is
+ * there and able to be executed
+ * @check: array of the paths
+ * Return: index of the valid path in the check array or 0 if none found
+ */
+int checkpath(char **check)
+{
+	int status = -1, i = 0;
+
+	for (i = 0; check[i] != NULL; i++)
+	{
+		status = access(check[i], F_OK | X_OK);
+		if (status == 0)
+			break;
+	}
+	if (check[i] == NULL)
+		return (0);
+	return (i);
+}
