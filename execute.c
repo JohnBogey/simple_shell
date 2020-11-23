@@ -90,7 +90,6 @@ void exec_prog(char **argv)
 	if (child_pid == 0)
 	{
 		execve(argv[0], argv, NULL);
-		perror("Error:");
 		_exit(0);
 	}
 	else

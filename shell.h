@@ -42,4 +42,6 @@ int func_env(char **env);
 int exec_builtin(char **cmds, char **env);
 int _strcmp(char *s1, char *s2);
 void _putsNewLine(char *str);
+char *_itoa(int value);
+void print_error(char *av, int count, char *cmd);
 #endif /*HEADER_H*/

@@ -22,14 +22,12 @@ void kill_block(int sig)
  * @env: list of environment variables
  * Return: always 0
  */
-int main(int ac, char **av, char **env)
+int main(int ac __attribute__((unused)), char **av, char **env)
 {
-	char *line = NULL;
+	char *line = NULL, *command, **cmd;
 	size_t size = 0;
-	char **cmd;
-	int status = 1, command_count = 0;
+	int status = 1, line_count = 0;
 
-	(void)ac, (void)av;
 	signal(SIGINT, kill_block);
 	while (status)
 	{
@@ -37,7 +35,7 @@ int main(int ac, char **av, char **env)
 			_puts("$ ");
 		line = NULL;
 		size = 0;
-		command_count += 1;
+		line_count += 1;
 		if (getline(&line, &size, stdin) == -1)
 		{
 			_putchar('\n');
@@ -53,9 +51,16 @@ int main(int ac, char **av, char **env)
 			if (status == -1)
 			{
 				if (access(cmd[0], F_OK) != 0)
+				{
+					command = malloc(_strlen(cmd[0]));
+					_strcpy(command, cmd[0]);
 					cmd = cmd_to_arg(cmd, env);
+				}
 				if (cmd != NULL)
 					exec_prog(cmd);
+				else
+					print_error(av[0], line_count, command);
+				free(command);
 				status = 1;
 			}
 			if (cmd != NULL)
