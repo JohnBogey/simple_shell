@@ -71,3 +71,21 @@ int _strcmp(char *s1, char *s2)
 	}
 	return (*s1 - *s2);
 }
+
+/**
+ * delim_check - ensures input other than delim is present
+ * @line: line being checked
+ * @delim: delimiter
+ * Return: 1 on pass -1 on failure
+ */
+int delim_check(char *line, char delim)
+{
+	int i = 0;
+
+	if (line[i] == '\n' || line[i] == ':')
+		return (-1);
+	for (i = 0; line[i]; i++)
+		if (line[i] != delim && line[i] != '\n')
+			return (1);
+	return (-1);
+}

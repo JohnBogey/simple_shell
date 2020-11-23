@@ -51,4 +51,5 @@ int populateargs(char **args, char **check, char **cmd, int i);
 int populate(char **check, char **pths, char **cmd);
 int checkpath(char **check);
 void freeall(char **cmd, char **check);
+int delim_check(char *line, char delim);
 #endif /*HEADER_H*/
