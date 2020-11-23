@@ -27,9 +27,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	char *line = NULL, *command, **cmd;
 	size_t size = 0;
 	int status = 1, line_count = 0;
-	char firstArg[] = "This is the first";
-	
-	(void)av;
+
 	signal(SIGINT, kill_block);
 	while (status)
 	{
@@ -61,7 +59,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 				if (cmd != NULL)
 					exec_prog(cmd);
 				else
-					print_error(firstArg, line_count, command);
+					print_error(av, line_count, command);
 				free(command);
 				status = 1;
 			}
