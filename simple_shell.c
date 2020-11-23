@@ -59,7 +59,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 				if (cmd != NULL)
 					exec_prog(cmd);
 				else
-					print_error(av, line_count, command);
+					print_error(av[0], line_count, command);
 				free(command);
 				status = 1;
 			}
