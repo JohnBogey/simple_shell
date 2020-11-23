@@ -36,7 +36,7 @@ char *_itoa(int value)
  * print_error - prints formatted error message
  * @av: list of arguments
  * @cmd: list of commands
- * @cound: current input line
+ * @count: current input line
  * Return: nothing
  */
 void print_error(char *av, int count, char *cmd)

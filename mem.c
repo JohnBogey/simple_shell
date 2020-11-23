@@ -17,6 +17,13 @@ void free2d(char **lines)
 	free(lines);
 }
 
+/**
+ * freeall - frees 2 arrays of strings
+ * @cmd: array of strings
+ * @check: array of string
+ * Return: void
+ */
+
 void freeall(char **cmd, char **check)
 {
 	free2d(check);
