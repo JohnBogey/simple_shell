@@ -43,7 +43,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			status = 0;
 			continue;
 		}
-		if (line[0] != '\n' && line[0] != ':')
+		if (delim_check(line, ' ') == 1)
 		{
 			line[_strlen(line) - 1] = '\0';
 			cmd = _strtok(line, " ");
@@ -52,7 +52,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			{
 				if (access(cmd[0], F_OK) != 0)
 				{
-					command = malloc(_strlen(cmd[0]));
+					command = malloc(_strlen(cmd[0]) + 1);
 					_strcpy(command, cmd[0]);
 					cmd = cmd_to_arg(cmd, env);
 				}

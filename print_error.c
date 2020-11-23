@@ -7,7 +7,7 @@
  */
 char *_itoa(int value)
 {
-	char string[9], *final_string;
+	char string[10], *final_string;
 	int size = 1, pos = 0, copy = value, mul = 1;
 
 	while (copy > 10)
