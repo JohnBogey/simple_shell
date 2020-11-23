@@ -42,12 +42,12 @@ void print_error(char *av, int count, char *cmd)
 {
 	char delim[3] = ": ", nf[10] = "not found\n", buffer[1024];
 
-	_strcpy(buffer, av);
-	_strcat(buffer, delim);
-	_strcat(buffer, _itoa(count));
-	_strcat(buffer, delim);
-	_strcat(buffer, cmd);
-	_strcat(buffer, delim);
-	_strcat(buffer, nf);
+	strcpy(buffer, av);
+	strcat(buffer, delim);
+	strcat(buffer, _itoa(count));
+	strcat(buffer, delim);
+	strcat(buffer, cmd);
+	strcat(buffer, delim);
+	strcat(buffer, nf);
 	write(STDERR_FILENO, buffer, _strlen(buffer) - 1);
 }
