@@ -12,7 +12,6 @@
 
 char **cmd_to_arg(char **cmd, char **env)
 {
-
 	char *path = get_path(env);
 	char slash[] = "/";
 	char **args = NULL, **pths = _strtok(path, ":"), **check;
@@ -80,4 +79,3 @@ char **cmd_to_arg(char **cmd, char **env)
 	free2d(cmd);
 	return (args);
 }
-

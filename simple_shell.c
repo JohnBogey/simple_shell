@@ -6,6 +6,7 @@
 
 /**
  * kill_block - stops ctrl+c
+ * @sig: signal
  * Return: always nothing
  */
 void kill_block(int sig)
@@ -16,6 +17,9 @@ void kill_block(int sig)
 
 /**
  * main - a very simple shell
+ * @ac: number of arguments
+ * @av: list of arguments
+ * @env: list of environment variables
  * Return: always 0
  */
 int main(int ac, char **av, char **env)
@@ -25,17 +29,15 @@ int main(int ac, char **av, char **env)
 	char **cmd;
 	int status = 1, command_count = 0;
 
+	(void)ac, (void)av;
 	signal(SIGINT, kill_block);
 	while (status)
 	{
-		/*prompt if stdin*/
 		if (isatty(STDIN_FILENO) == 1)
 			_puts("$ ");
-		/*reset variables for getline*/
 		line = NULL;
 		size = 0;
 		command_count += 1;
-		/*get the line, on EOF or failure exit*/
 		if (getline(&line, &size, stdin) == -1)
 		{
 			_putchar('\n');
@@ -45,23 +47,17 @@ int main(int ac, char **av, char **env)
 		}
 		if (line[0] != '\n' && line[0] != ' ' && line[0] != ':')
 		{
-			/*set last newline to nullbyte*/
 			line[_strlen(line) - 1] = '\0';
-			/*set cmd to array of commands/flags*/
 			cmd = _strtok(line, " ");
-			/*check built ins, run if found*/
 			status = exec_builtin(cmd, env);
 			if (status == -1)
 			{
-				/*turns cmd to args for exec*/
 				if (access(cmd[0], F_OK) != 0)
 					cmd = cmd_to_arg(cmd, env);
-				/*execute program if found*/
 				if (cmd != NULL)
 					exec_prog(cmd);
 				status = 1;
 			}
-			/*free stuff*/
 			if (cmd != NULL)
 				free2d(cmd);
 		}

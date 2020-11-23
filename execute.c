@@ -2,6 +2,7 @@
 
 /**
  * func_exit - ends loop by returning 0
+ * @env: evironment variables
  * Return: 0
  */
 int func_exit(char **env)
@@ -10,17 +11,28 @@ int func_exit(char **env)
 	return (0);
 }
 
+/**
+ * func_clear - clears screen
+ * @env: evironment variables
+ * Return: 1
+ */
 int func_clear(char **env)
 {
-	(void)env;
 	char cmd[] = "echo -e \\x1b\\x5b\\x48\\x1b\\x5b\\x32\\x4a\\c";
-	char **command = _strtok(cmd, " ");
+	char **command;
+	(void)env;
+	command = _strtok(cmd, " ");
 	command = cmd_to_arg(command, env);
 	exec_prog(command);
 	free2d(command);
 	return (1);
 }
 
+/**
+ * func_env - prints environment
+ * @env: evironment variables
+ * Return: 1
+ */
 int func_env(char **env)
 {
 	char **envStart = env;
@@ -34,21 +46,9 @@ int func_env(char **env)
 }
 
 /**
- * struct builtin - Struct builtin
- *
- * @str: command being checked
- * @func: The function associated
- */
-
-typedef struct builtin
-{
-	char *str;
-	int(*func)(char **env);
-} built_t;
-
-/**
  * exec_builtin - matches input to function and runs function
- * @argv: null terminated string of args for program
+ * @env: list of environment variables
+ * @cmds: null terminated string of args for program
  * Return: 1 on success, 0 on exit, -1 on failure
  */
 
@@ -62,6 +62,7 @@ int exec_builtin(char **cmds, char **env)
 	};
 
 	int i;
+
 	for (i = 0; built_ins[i].str != NULL; i++)
 	{
 		if (_strcmp(built_ins[i].str, cmds[0]) == 0)
@@ -75,7 +76,6 @@ int exec_builtin(char **cmds, char **env)
  * @argv: null terminated string of args for program
  * Return: always 0
  */
-
 void exec_prog(char **argv)
 {
 	pid_t child_pid;
@@ -95,5 +95,4 @@ void exec_prog(char **argv)
 	}
 	else
 		wait(&status);
-	return;
 }
