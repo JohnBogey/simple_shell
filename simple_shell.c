@@ -24,7 +24,7 @@ void kill_block(int sig)
  */
 int main(int ac __attribute__((unused)), char **av, char **env)
 {
-	char *line = NULL, *command, **cmd;
+	char *line = NULL, *command = NULL, **cmd;
 	size_t size = 0;
 	int status = 1, line_count = 0;
 
@@ -35,6 +35,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			_puts("$ ");
 		line = NULL;
 		size = 0;
+		command = NULL;
 		line_count += 1;
 		if (getline(&line, &size, stdin) == -1)
 		{
@@ -60,7 +61,8 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 					exec_prog(cmd);
 				else
 					print_error(av[0], line_count, command);
-				free(command);
+				if (command != NULL)
+					free(command);
 				status = 1;
 			}
 			if (cmd != NULL)
