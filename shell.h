@@ -44,4 +44,7 @@ int _strcmp(char *s1, char *s2);
 void _putsNewLine(char *str);
 char *_itoa(int value);
 void print_error(char *av, int count, char *cmd);
+int populateargs(char **args, char **check, char **cmd, int i);
+int populate(char **check, char **pths, char **cmd);
+int checkpath(char **check);
 #endif /*HEADER_H*/
