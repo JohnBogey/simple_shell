@@ -15,4 +15,12 @@ void free2d(char **lines)
 		i++;
 	}
 	free(lines);
+	return;
+}
+
+void freeall(char **cmd, char **check)
+{
+	free2d(cmd);
+	free2d(check);
+	return;
 }
