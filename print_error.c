@@ -27,7 +27,8 @@ char *_itoa(int value)
 		mul /= 10;
 	}
 	string[pos] = '\0';
-	final_string = string;
+	final_string = malloc(_strlen(string));
+	_strcpy(final_string, string);
 	return (final_string);
 }
 
@@ -41,13 +42,15 @@ char *_itoa(int value)
 void print_error(char *av, int count, char *cmd)
 {
 	char delim[3] = ": ", nf[10] = "not found\n", buffer[1024];
+	char *number = _itoa(count);
 
-	strcpy(buffer, av);
-	strcat(buffer, delim);
-	strcat(buffer, _itoa(count));
-	strcat(buffer, delim);
-	strcat(buffer, cmd);
-	strcat(buffer, delim);
-	strcat(buffer, nf);
+	_strcpy(buffer, av);
+	_strcat(buffer, delim);
+	_strcat(buffer, number);
+	free(number);
+	_strcat(buffer, delim);
+	_strcat(buffer, cmd);
+	_strcat(buffer, delim);
+	_strcat(buffer, nf);
 	write(STDERR_FILENO, buffer, _strlen(buffer) - 1);
 }
