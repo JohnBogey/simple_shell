@@ -12,6 +12,19 @@
 #include <string.h>
 #include <linux/limits.h>
 
+/**
+ * struct builtin - Struct builtin
+ *
+ * @str: command being checked
+ * @func: The function associated
+ */
+
+typedef struct builtin
+{
+	char *str;
+	int (*func)(char **env);
+} built_t;
+
 int _strlen(char *s);
 char **_strtok(char *str, char *c);
 int _putchar(char c);
@@ -32,4 +45,6 @@ void _putsNewLine(char *str);
 int populateargs(char **args,char **check, char **cmd, int i);
 int populate(char **check, char **pths, char **cmd);
 int checkpath(char **check);
+char *_itoa(int value);
+void print_error(char *av, int count, char *cmd);
 #endif /*HEADER_H*/
