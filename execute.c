@@ -12,7 +12,7 @@ int func_exit(char **env)
 
 int func_clear(char **env)
 {
-	char cmd[] = "echo -e \"\\x1b\\x5b\\x48\\x1b\\x5b\\x32\\x4a\\c\"";
+	char cmd[] = "echo -e \\x1b\\x5b\\x48\\x1b\\x5b\\x32\\x4a\\c";
 	char **command; 
 	
 	(void)env;
