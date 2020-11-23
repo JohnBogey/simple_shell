@@ -39,7 +39,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		line_count += 1;
 		if (getline(&line, &size, stdin) == -1)
 		{
-			_putchar('\n');
+			//_putchar('\n');
 			free(line);
 			status = 0;
 			continue;
