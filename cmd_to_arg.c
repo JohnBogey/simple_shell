@@ -27,10 +27,15 @@ char **cmd_to_arg(char **cmd, char **env)
 	}
 	j = populate(check, pths, cmd);
 	if (j == 0)
+	{	
+		free2d(cmd);
+		free2d(check);
 		return (NULL);
+	}
 	i = checkpath(check);
 	if (i == 0)
 	{
+		free2d(check);
 		free2d(cmd);
 		return (NULL);
 	}
@@ -45,9 +50,10 @@ char **cmd_to_arg(char **cmd, char **env)
 	}
 	j = populateargs(args, check, cmd, i);
 	if (j == 0)
+	{	
+		free(check);
 		return (NULL);
-	free2d(cmd);
-	free2d(check);
+	}
 	return (args);
 }
 
@@ -70,8 +76,7 @@ int populateargs(char **args, char **check, char **cmd, int i)
 		args[i] = malloc(_strlen(cmd[i] + 1));
 		if (args[i] == NULL)
 		{
-			free2d(args);
-			free2d(cmd);
+			freeall(args, cmd);
 			return (0);
 		}
 		_strcpy(args[i], cmd[i]);
@@ -99,9 +104,8 @@ int populate(char **check, char **pths, char **cmd)
 		check[i] = malloc(_strlen(pths[i]) + _strlen(cmd[0]) + 2);
 		if (check[i] == NULL)
 		{
-			free2d(check);
+			freeall(check, cmd);
 			free2d(pths);
-			free2d(cmd);
 			return (0);
 		}
 		_strcpy(check[i], pths[i]);

@@ -47,4 +47,8 @@ int populate(char **check, char **pths, char **cmd);
 int checkpath(char **check);
 char *_itoa(int value);
 void print_error(char *av, int count, char *cmd);
+int populateargs(char **args, char **check, char **cmd, int i);
+int populate(char **check, char **pths, char **cmd);
+int checkpath(char **check);
+void freeall(char **cmd, char **check);
 #endif /*HEADER_H*/

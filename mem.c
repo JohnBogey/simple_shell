@@ -16,3 +16,9 @@ void free2d(char **lines)
 	}
 	free(lines);
 }
+
+void freeall(char **cmd, char **check)
+{
+	free2d(check);
+	free2d(cmd);
+}
