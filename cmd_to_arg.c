@@ -27,7 +27,7 @@ char **cmd_to_arg(char **cmd, char **env)
 	}
 	j = populate(check, pths, cmd);
 	if (j == 0)
-	{	
+	{
 		freeall(check, cmd);
 		return (NULL);
 	}
@@ -47,7 +47,7 @@ char **cmd_to_arg(char **cmd, char **env)
 	}
 	j = populateargs(args, check, cmd, i);
 	if (j == 0)
-	{	
+	{
 		free(check);
 		return (NULL);
 	}
