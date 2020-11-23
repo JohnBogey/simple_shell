@@ -43,7 +43,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			status = 0;
 			continue;
 		}
-		if (line[0] != '\n' && line[0] != ' ' && line[0] != ':')
+		if (line[0] != '\n' && line[0] != ':')
 		{
 			line[_strlen(line) - 1] = '\0';
 			cmd = _strtok(line, " ");
