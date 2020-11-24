@@ -47,10 +47,7 @@ char **cmd_to_arg(char **cmd, char **env)
 	}
 	j = populateargs(args, check, cmd, i);
 	if (j == 0)
-	{
-		free(check);
 		return (NULL);
-	}
 	freeall(check, cmd);
 	return (args);
 }
