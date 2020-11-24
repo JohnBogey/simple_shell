@@ -30,8 +30,6 @@ This section contains a list of built-in commands which perform some operation o
 .PP
 .nf
 .fam C
-  no input, newline, :
-   is ignored
   env
    prints the environment
   exit

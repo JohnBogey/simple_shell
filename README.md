@@ -16,7 +16,6 @@ Other than the programs, there are a few commands you can run:
 | ------ | ------ |
 | env | prints a list of environment variables |
 | clear | built in alias for clearing the screen |
-| "\\n", " ", and ":" | ignored by the shell |
 | exit | stops and exits the shell |
 
 #### Created by:
