@@ -49,4 +49,5 @@ int populate(char **check, char **pths, char **cmd);
 int checkpath(char **check);
 void freeall(char **cmd, char **check);
 int delim_check(char *line, char delim);
+int p_run(char **cmd, char *av, int line_count, char *command);
 #endif /*HEADER_H*/
